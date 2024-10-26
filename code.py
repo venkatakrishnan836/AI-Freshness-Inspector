@@ -3,12 +3,10 @@ import torch
 from PIL import Image
 from transformers import MllamaForConditionalGeneration, AutoProcessor
 
-# Model Configuration
 MODEL_ID = "meta-llama/Llama-3.2-11B-Vision-Instruct"
 DEVICE_MAP = "auto"
 TORCH_DTYPE = torch.bfloat16
 
-# Load the processor and model
 processor = AutoProcessor.from_pretrained(MODEL_ID)
 model = MllamaForConditionalGeneration.from_pretrained(
     MODEL_ID,
@@ -16,7 +14,6 @@ model = MllamaForConditionalGeneration.from_pretrained(
     device_map=DEVICE_MAP,
 )
 
-# Define the prompt template
 PROMPT_TEMPLATE = """
 ANALYZE THE PROVIDED IMAGE OF A FOOD PRODUCT AND PROVIDE A CONCISE OUTPUT IN THE FOLLOWING FORMAT:
 "Product: [SPECIFIC PRODUCT NAME], Freshness: [FRESHNESS CATEGORY] (shelf life: [NUMBER] days)"
@@ -44,8 +41,6 @@ INCLUDE:
 - Specific shelf life
 - Product name
 """
-
-# Function to process an image
 def process_image(image_path):
     image = Image.open(image_path)
     messages = [
@@ -88,8 +83,6 @@ def process_image(image_path):
     else:
         return {"Product": "Unknown", "Freshness": "Unknown", "Shelf Life": "0"}
 
-
-# Function to process images from a folder
 def process_images_from_folder(folder_path):
     for image_filename in os.listdir(folder_path):
         image_path = os.path.join(folder_path, image_filename)
@@ -99,6 +92,6 @@ def process_images_from_folder(folder_path):
         print(f"Freshness: {output['Freshness']}")
         print(f"Shelf Life: {output['Shelf Life']}\n")
 
-# Example usage
-folder_path = r"C:\Users\Administrator\drive D\Image_TextExtract\test\5"
+# Update folder path
+folder_path = "Foler path"
 process_images_from_folder(folder_path)
