@@ -92,6 +92,6 @@ def process_images_from_folder(folder_path):
         print(f"Freshness: {output['Freshness']}")
         print(f"Shelf Life: {output['Shelf Life']}\n")
 
-# Update folder path
+# Specify the folder path containing the images
 folder_path = "Foler path"
 process_images_from_folder(folder_path)
